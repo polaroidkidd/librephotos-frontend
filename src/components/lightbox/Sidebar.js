@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { Tile } from "../Tile";
 import { withTranslation, Trans } from "react-i18next";
 import { compose } from "redux";
-var LIGHTBOX_SIDEBAR_WIDTH = 360;
+let LIGHTBOX_SIDEBAR_WIDTH = 360;
 if (window.innerWidth < 600) {
   LIGHTBOX_SIDEBAR_WIDTH = window.innerWidth;
 }
@@ -37,6 +37,7 @@ export default class Sidebar extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <Transition visible={this.props.lightboxSidebarShow} animation="fade left" duration={500}>

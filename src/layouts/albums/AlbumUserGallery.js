@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUserAlbum } from "../../actions/albumsActions";
+import { fetchUserAlbum } from "../../store/albums/albumsActions";
 import { PhotoListView } from "../../components/photolist/PhotoListView";
 import { PhotosetType } from "../../reducers/photosReducer";
 import { compose } from "redux";
@@ -22,7 +22,7 @@ export class AlbumUserGallery extends Component {
   render() {
     const isPublic =
       this.props.albumDetails.owner && this.props.albumDetails.owner.id !== this.props.auth.access.user_id;
-    var additionalSubHeader = "";
+    let additionalSubHeader = "";
     if (isPublic) {
       additionalSubHeader = (
         <span>

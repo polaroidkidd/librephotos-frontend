@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Icon, Header, Dropdown, Loader, Popup, Confirm, Label, Modal, Button, Input } from "semantic-ui-react";
 import { Grid, AutoSizer } from "react-virtualized";
-import { fetchUserAlbumsList, renameUserAlbum, deleteUserAlbum } from "../../actions/albumsActions";
+import { fetchUserAlbumsList, renameUserAlbum, deleteUserAlbum } from "../../store/albums/albumsActions";
 import { Link } from "react-router-dom";
 import { Tile } from "../../components/Tile";
 import { TOP_MENU_HEIGHT } from "../../ui-constants";
 import { compose } from "redux";
 import { withTranslation } from "react-i18next";
 
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 export class AlbumUser extends Component {
   state = { newAlbumTitle: "" };
+
   constructor() {
     super();
     this.setState({
@@ -30,20 +31,25 @@ export class AlbumUser extends Component {
     this.calculateEntrySquareSize = this.calculateEntrySquareSize.bind(this);
     this.cellRenderer = this.cellRenderer.bind(this);
   }
+
   openDeleteDialog = (albumID, albumTitle) =>
     this.setState({
       openDeleteDialog: true,
       albumID: albumID,
       albumTitle: albumTitle,
     });
+
   openRenameDialog = (albumID, albumTitle) =>
     this.setState({
       openRenameDialog: true,
       albumID: albumID,
       albumTitle: albumTitle,
     });
+
   closeDeleteDialog = () => this.setState({ openDeleteDialog: false });
+
   closeRenameDialog = () => this.setState({ openRenameDialog: false });
+
   componentDidMount() {
     this.calculateEntrySquareSize();
     window.addEventListener("resize", this.calculateEntrySquareSize.bind(this));
@@ -53,7 +59,7 @@ export class AlbumUser extends Component {
   }
 
   calculateEntrySquareSize() {
-    var numEntrySquaresPerRow = 6;
+    let numEntrySquaresPerRow = 6;
     if (window.innerWidth < 600) {
       numEntrySquaresPerRow = 2;
     } else if (window.innerWidth < 800) {
@@ -64,9 +70,9 @@ export class AlbumUser extends Component {
       numEntrySquaresPerRow = 5;
     }
 
-    var columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
+    let columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
 
-    var entrySquareSize = columnWidth / numEntrySquaresPerRow;
+    let entrySquareSize = columnWidth / numEntrySquaresPerRow;
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -76,7 +82,7 @@ export class AlbumUser extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var albumUserIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
+    let albumUserIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumUserIndex < this.props.albumsUserList.length) {
       return (
         <div key={key} style={style}>

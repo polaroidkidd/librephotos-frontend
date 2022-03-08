@@ -1,23 +1,15 @@
 import { Server } from "../api_client/apiClient";
 import _ from "lodash";
-const reapop = require("reapop");
-const notify = reapop.notify;
 import { adjustDateFormat, getPhotosFlatFromGroupedByDate, getPhotosFlatFromGroupedByUser } from "../util/util";
 import { PhotosetType } from "../reducers/photosReducer";
-import { Dispatch } from "redux";
-import {
-  DatePhotosGroup,
-  DatePhotosGroupSchema,
-  Photo,
-  PhotoSchema,
-  PigPhoto,
-  PigPhotoSchema,
-  SharedFromMePhotoSchema,
-  SimpleUser,
-} from "./photosActions.types";
+import type { Dispatch } from "redux";
+import type { DatePhotosGroup, Photo, PigPhoto, SimpleUser } from "./photosActions.types";
+import { DatePhotosGroupSchema, PhotoSchema, PigPhotoSchema, SharedFromMePhotoSchema } from "./photosActions.types";
 import { z } from "zod";
-import { AppDispatch } from "../store";
+import type { AppDispatch } from "../store/store";
 import i18n from "../i18n";
+const reapop = require("reapop");
+const notify = reapop.notify;
 
 export type UserPhotosGroup = {
   userId: number;
@@ -61,7 +53,7 @@ export function uploadPhotos(form_data: any, dispatch: Dispatch<any>) {
 export function downloadPhotos(image_hashes: string[]) {
   return function (dispatch: Dispatch<any>) {
     Server.post(
-      `photos/download`,
+      "photos/download",
       {
         image_hashes: image_hashes,
       },
@@ -84,13 +76,13 @@ export const SET_PHOTOS_SHARED_FULFILLED = "SET_PHOTOS_SHARED_FULFILLED";
 export function setPhotosShared(image_hashes: string[], val_shared: boolean, target_user: SimpleUser) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: "SET_PHOTOS_SHARED" });
-    Server.post(`photosedit/share/`, {
+    Server.post("photosedit/share/", {
       image_hashes: image_hashes,
       shared: val_shared,
       target_user_id: target_user.id,
     })
       .then((response) => {
-        var notificationMessage = i18n.t("toasts.unsharephoto", {
+        let notificationMessage = i18n.t("toasts.unsharephoto", {
           username: target_user.username,
           numberOfPhotos: image_hashes.length,
         });
@@ -223,7 +215,7 @@ export const SET_PHOTOS_PUBLIC_FULFILLED = "SET_PHOTOS_PUBLIC_FULFILLED";
 export function setPhotosPublic(image_hashes: string[], val_public: boolean) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: "SET_PHOTOS_PUBLIC" });
-    Server.post(`photosedit/makepublic/`, {
+    Server.post("photosedit/makepublic/", {
       image_hashes: image_hashes,
       val_public: val_public,
     })
@@ -238,7 +230,7 @@ export function setPhotosPublic(image_hashes: string[], val_public: boolean) {
             updatedPhotos: updatedPhotos,
           },
         });
-        var notificationMessage = i18n.t("toasts.setphotopublic", {
+        let notificationMessage = i18n.t("toasts.setphotopublic", {
           numberOfPhotos: image_hashes.length,
         });
         if (val_public) {
@@ -271,7 +263,7 @@ export const SET_PHOTOS_FAVORITE_REJECTED = "SET_PHOTOS_FAVORITE_REJECTED";
 export function setPhotosFavorite(image_hashes: string[], favorite: boolean) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: SET_PHOTOS_FAVORITE });
-    Server.post(`photosedit/favorite/`, {
+    Server.post("photosedit/favorite/", {
       image_hashes: image_hashes,
       favorite: favorite,
     })
@@ -286,7 +278,7 @@ export function setPhotosFavorite(image_hashes: string[], favorite: boolean) {
             updatedPhotos: updatedPhotos,
           },
         });
-        var notificationMessage = i18n.t("toasts.unfavoritephoto", {
+        let notificationMessage = i18n.t("toasts.unfavoritephoto", {
           numberOfPhotos: image_hashes.length,
         });
         if (favorite) {
@@ -316,7 +308,7 @@ export const PHOTOS_FINAL_DELETED_REJECTED = "PHOTOS_FINAL_DELETED_REJECTED";
 export function finalPhotosDeleted(image_hashes: string[]) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: PHOTOS_FINAL_DELETED });
-    Server.delete(`photosedit/delete`, {
+    Server.delete("photosedit/delete", {
       data: {
         image_hashes: image_hashes,
       },
@@ -331,7 +323,7 @@ export function finalPhotosDeleted(image_hashes: string[]) {
             updatedPhotos: updatedPhotos,
           },
         });
-        var notificationMessage = i18n.t("toasts.finaldeletephoto", {
+        const notificationMessage = i18n.t("toasts.finaldeletephoto", {
           numberOfPhotos: image_hashes.length,
         });
         dispatch(
@@ -356,7 +348,7 @@ export const SET_PHOTOS_DELETED_REJECTED = "SET_PHOTOS_DELETED_REJECTED";
 export function setPhotosDeleted(image_hashes: string[], deleted: boolean) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: SET_PHOTOS_DELETED });
-    Server.post(`photosedit/setdeleted/`, {
+    Server.post("photosedit/setdeleted/", {
       image_hashes: image_hashes,
       deleted: deleted,
     })
@@ -371,7 +363,7 @@ export function setPhotosDeleted(image_hashes: string[], deleted: boolean) {
             updatedPhotos: updatedPhotos,
           },
         });
-        var notificationMessage = i18n.t("toasts.recoverphoto", {
+        let notificationMessage = i18n.t("toasts.recoverphoto", {
           numberOfPhotos: image_hashes.length,
         });
         if (deleted) {
@@ -399,7 +391,7 @@ export const SET_PHOTOS_HIDDEN_FULFILLED = "SET_PHOTOS_HIDDEN_FULFILLED";
 export function setPhotosHidden(image_hashes: string[], hidden: boolean) {
   return function (dispatch: Dispatch<any>) {
     dispatch({ type: "SET_PHOTOS_HIDDEN" });
-    Server.post(`photosedit/hide/`, {
+    Server.post("photosedit/hide/", {
       image_hashes: image_hashes,
       hidden: hidden,
     })
@@ -414,7 +406,7 @@ export function setPhotosHidden(image_hashes: string[], hidden: boolean) {
             updatedPhotos: updatedPhotos,
           },
         });
-        var notificationMessage = i18n.t("toasts.unhidephoto", {
+        let notificationMessage = i18n.t("toasts.unhidephoto", {
           numberOfPhotos: image_hashes.length,
         });
         if (hidden) {
@@ -446,7 +438,7 @@ export function scanPhotos() {
     dispatch({ type: "SCAN_PHOTOS" });
     dispatch({ type: "SET_WORKER_AVAILABILITY", payload: false });
 
-    Server.get(`scanphotos/`)
+    Server.get("scanphotos/")
       .then((response) => {
         const jobResponse = JobResponseSchema.parse(response.data);
         dispatch(
@@ -471,7 +463,7 @@ export function scanAllPhotos() {
     dispatch({ type: "SCAN_PHOTOS" });
     dispatch({ type: "SET_WORKER_AVAILABILITY", payload: false });
 
-    Server.get(`fullscanphotos/`)
+    Server.get("fullscanphotos/")
       .then((response) => {
         const jobResponse = JobResponseSchema.parse(response.data);
         dispatch(
@@ -496,7 +488,7 @@ export function scanNextcloudPhotos() {
     dispatch({ type: "SCAN_PHOTOS" });
     dispatch({ type: "SET_WORKER_AVAILABILITY", payload: false });
 
-    Server.get(`nextcloud/scanphotos/`)
+    Server.get("nextcloud/scanphotos/")
       .then((response) => {
         const jobResponse = JobResponseSchema.parse(response.data);
         dispatch(

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Loader, Header, Label } from "semantic-ui-react";
-const { XYPlot, HorizontalGridLines, Hint, MarkSeries, VerticalGridLines } = require("react-vis");
 import useDimensions from "react-cool-dimensions";
 import { serverAddress } from "../../api_client/apiClient";
 import { clusterFaces } from "../../actions/facesActions";
 import { SecuredImageJWT } from "../SecuredImage";
 import { useTranslation } from "react-i18next";
 import { useAppSelector, useAppDispatch } from "../../hooks";
+const { XYPlot, HorizontalGridLines, Hint, MarkSeries, VerticalGridLines } = require("react-vis");
 
 type Props = {
   height: number;
@@ -27,7 +27,7 @@ export const FaceClusterGraph = (props: Props) => {
     clusterFaces(dispatch);
   }, [dispatch]); // Only run on first render
 
-  var person_names = [
+  const person_names = [
     ...new Set(
       facesVis.map(function (el: any) {
         return el.person_name;
@@ -35,11 +35,11 @@ export const FaceClusterGraph = (props: Props) => {
     ),
   ];
 
-  var mappedScatter = person_names.map(function (person_name, idx) {
-    var thisPersonVis = facesVis.filter(function (el: any) {
+  const mappedScatter = person_names.map(function (person_name, idx) {
+    const thisPersonVis = facesVis.filter(function (el: any) {
       return person_name === el.person_name;
     });
-    var thisPersonData = thisPersonVis.map(function (el: any) {
+    const thisPersonData = thisPersonVis.map(function (el: any) {
       return {
         x: el.value.x,
         y: el.value.y,

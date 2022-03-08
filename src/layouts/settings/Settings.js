@@ -54,7 +54,9 @@ export class Settings extends Component {
     userSelfDetails: {},
     modalNextcloudScanDirectoryOpen: false,
   };
+
   open = () => this.setState({ open: true });
+
   close = () => this.setState({ open: false });
 
   setEditorRef = (editor) => (this.editor = editor);
@@ -81,10 +83,10 @@ export class Settings extends Component {
     this.close();
   };
 
-  urltoFile = (url, filename, mimeType) => {
+  urltoFile = async (url, filename, mimeType) => {
     mimeType = mimeType || (url.match(/^data:([^;]+);/) || "")[1];
     return fetch(url)
-      .then(function (res) {
+      .then(async function (res) {
         return res.arrayBuffer();
       })
       .then(function (buf) {
@@ -353,8 +355,8 @@ export class Settings extends Component {
                     floated="left"
                     onClick={() => {
                       const newUserData = this.state.userSelfDetails;
-                      delete newUserData["scan_directory"];
-                      delete newUserData["avatar"];
+                      delete newUserData.scan_directory;
+                      delete newUserData.avatar;
                       updateUser(newUserData, this.props.dispatch);
                     }}
                   >
@@ -463,8 +465,8 @@ export class Settings extends Component {
                   disabled={!this.state.userSelfDetails.nextcloud_app_password}
                   onClick={() => {
                     const ud = this.state.userSelfDetails;
-                    delete ud["scan_directory"];
-                    delete ud["avatar"];
+                    delete ud.scan_directory;
+                    delete ud.avatar;
                     updateUser(ud, this.props.dispatch);
                   }}
                   size="small"
@@ -913,8 +915,8 @@ export class Settings extends Component {
                 color="green"
                 onClick={() => {
                   const newUserData = this.state.userSelfDetails;
-                  delete newUserData["scan_directory"];
-                  delete newUserData["avatar"];
+                  delete newUserData.scan_directory;
+                  delete newUserData.avatar;
                   updateUser(newUserData, this.props.dispatch);
                   if (typeof this.props.onRequestClose == "function") this.props.onRequestClose();
                 }}
@@ -994,8 +996,8 @@ export class Settings extends Component {
                 color="green"
                 onClick={() => {
                   const newUserData = this.state.userSelfDetails;
-                  delete newUserData["scan_directory"];
-                  delete newUserData["avatar"];
+                  delete newUserData.scan_directory;
+                  delete newUserData.avatar;
                   updateUser(newUserData, this.props.dispatch);
                   if (typeof this.props.onRequestClose == "function") this.props.onRequestClose();
                 }}
@@ -1040,8 +1042,8 @@ export class Settings extends Component {
                 color="green"
                 onClick={() => {
                   const newUserData = this.state.userSelfDetails;
-                  delete newUserData["scan_directory"];
-                  delete newUserData["avatar"];
+                  delete newUserData.scan_directory;
+                  delete newUserData.avatar;
                   updateUser(newUserData, this.props.dispatch);
                   if (typeof this.props.onRequestClose == "function") this.props.onRequestClose();
                 }}

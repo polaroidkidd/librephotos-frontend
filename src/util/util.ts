@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
-import { UserPhotosGroup } from "../actions/photosActions";
-import { DatePhotosGroup, IncompleteDatePhotosGroup, PigPhoto } from "../actions/photosActions.types";
+import type { UserPhotosGroup } from "../actions/photosActions";
+import type { DatePhotosGroup, IncompleteDatePhotosGroup, PigPhoto } from "../actions/photosActions.types";
 import i18n from "../i18n";
 
-export const copyToClipboard = (str: string) => {
+export const copyToClipboard: (str: string) => void = (str: string): void => {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(str);
   } else {
@@ -17,7 +17,7 @@ export const copyToClipboard = (str: string) => {
 };
 
 //To-Do: Add ordinal suffix to day of month when implemented in luxon
-export function adjustDateFormatForSingleGroup(group: DatePhotosGroup) {
+export function adjustDateFormatForSingleGroup(group: DatePhotosGroup): void {
   if (group.date != null) {
     group.date =
       DateTime.fromISO(group.date).toLocaleString(DateTime.DATETIME_MED) !== "Invalid DateTime"
@@ -28,7 +28,7 @@ export function adjustDateFormatForSingleGroup(group: DatePhotosGroup) {
   }
 }
 
-export function adjustDateFormat(photosGroupedByDate: DatePhotosGroup[]) {
+export function adjustDateFormat(photosGroupedByDate: DatePhotosGroup[]): void {
   photosGroupedByDate.forEach(adjustDateFormatForSingleGroup);
 }
 
@@ -42,7 +42,7 @@ export function getPhotosFlatFromGroupedByDate(photosGroupedByDate: DatePhotosGr
 
 export function addTempElementsToGroups(photosGroupedByDate: IncompleteDatePhotosGroup[]) {
   photosGroupedByDate.forEach((group) => {
-    for (var i = 0; i < group.numberOfItems; i++) {
+    for (let i = 0; i < group.numberOfItems; i++) {
       group.items.push({
         id: i.toString(),
         aspectRatio: 1,
@@ -53,8 +53,8 @@ export function addTempElementsToGroups(photosGroupedByDate: IncompleteDatePhoto
 }
 
 export function addTempElementsToFlatList(photosCount: number) {
-  var newPhotosFlat: PigPhoto[] = [];
-  for (var i = 0; i < photosCount; i++) {
+  const newPhotosFlat: PigPhoto[] = [];
+  for (let i = 0; i < photosCount; i++) {
     newPhotosFlat.push({
       id: i.toString(),
       aspectRatio: 1,

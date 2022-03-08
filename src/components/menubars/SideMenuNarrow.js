@@ -12,6 +12,7 @@ export class SideMenuNarrow extends Component {
   state = { activeItem: "all photos" };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
   handleLogout = (e, { name }) => this.props.dispatch(logout());
 
   render() {
@@ -194,7 +195,7 @@ export class SideMenuNarrow extends Component {
               <Dropdown.Menu>
                 <Dropdown.Header>{this.props.t("sidemenu.sharing")}</Dropdown.Header>
 
-                <Dropdown.Item disabled={!this.props.auth.access} as={Link} to={`/users/`}>
+                <Dropdown.Item disabled={!this.props.auth.access} as={Link} to={"/users/"}>
                   <Icon name="globe" />
                   {"  " + this.props.t("sidemenu.publicphotos")}
                 </Dropdown.Item>

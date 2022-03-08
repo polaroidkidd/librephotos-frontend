@@ -35,8 +35,8 @@ export default function reducer(
   },
   action
 ) {
-  var newInferredFacesList;
-  var newLabeledFacesList;
+  let newInferredFacesList;
+  let newLabeledFacesList;
   switch (action.type) {
     // all faces
     case "FETCH_FACES": {

@@ -3,11 +3,10 @@ import { compose } from "redux";
 import { Header, Input, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import { manageUpdateUser, updateUserAndScan } from "../../actions/utilActions";
+import { manageUpdateUser, updateUserAndScan, fetchDirectoryTree } from "../../actions/utilActions";
 import SortableTree from "react-sortable-tree";
 import FileExplorerTheme from "react-sortable-tree-theme-file-explorer";
 import { withTranslation } from "react-i18next";
-import { fetchDirectoryTree } from "../../actions/utilActions";
 export class ModalScanDirectoryEdit extends Component {
   constructor(props) {
     super(props);

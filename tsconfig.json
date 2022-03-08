@@ -15,7 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "sourceMap": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@models": ["./src/models/index.ts"]
+    }
   },
   "include": ["./src"]
 }

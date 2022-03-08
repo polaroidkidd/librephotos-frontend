@@ -1,12 +1,12 @@
 import axios from "axios";
-import store from "../store";
+import { store } from "../store/store";
 import { isRefreshTokenExpired } from "../reducers/";
 
-export var serverAddress = "";
+export const serverAddress = "";
 // This is a dirty hack. Grabs current host for when sharing. URL handling needs cleaned up. DW 12-13-20
-export var shareAddress = window.location.host;
+export const shareAddress = window.location.host;
 
-export var Server = axios.create({
+export const Server = axios.create({
   baseURL: "/api/",
   headers: {
     "Content-Type": "application/json",
@@ -21,14 +21,16 @@ Server.interceptors.request.use(
   function (request) {
     return request;
   },
-  function (error) {}
+  function (error) {
+    console.error(error);
+  }
 );
 
 Server.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
+  async function (error) {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry && !isRefreshTokenExpired(store.getState())) {
       originalRequest._retry = true;
@@ -37,13 +39,13 @@ Server.interceptors.response.use(
       const refreshToken = auth.refresh.token;
       return Server.post(serverAddress + "/auth/token/refresh/", {
         refresh: refreshToken,
-      }).then((response) => {
+      }).then(async (response) => {
         store.dispatch({
           type: "REFRESH_ACCESS_TOKEN_FULFILLED",
           payload: response.data,
         });
-        Server.defaults.headers.common["Authorization"] = "Bearer " + response.data.access;
-        originalRequest.headers["Authorization"] = "Bearer " + response.data.access;
+        Server.defaults.headers.common.Authorization = "Bearer " + response.data.access;
+        originalRequest.headers.Authorization = "Bearer " + response.data.access;
         if (originalRequest.baseURL === originalRequest.url.substring(0, 5)) {
           originalRequest.baseURL = "";
         }

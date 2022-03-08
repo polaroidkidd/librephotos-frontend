@@ -48,7 +48,7 @@ export function SortableItem(props: Props) {
             style={{ backgroundColor: "transparent" }}
             attached="top right"
             onClick={() => {
-              if (props.removeItemFunction) {
+              if (props.removeItemFunction != null) {
                 props.removeItemFunction(props.item);
               }
             }}
@@ -61,7 +61,7 @@ export function SortableItem(props: Props) {
             <Button
               color="green"
               onClick={() => {
-                if (props.addItemFunction) {
+                if (props.addItemFunction != null) {
                   props.addItemFunction(props.item);
                 }
               }}

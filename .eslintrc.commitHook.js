@@ -1,29 +1,23 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
-  extends: ["react-app", "eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json"],
-  },
-  settings: {
-    react: {
-      version: "detect",
-    },
-  },
-  ignorePatterns: ["*.css", "*.svg", "*.json"],
-  globals: {
-    JSX: true,
-  },
+  extends: [require.resolve("./.eslintrc.js")],
   rules: {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/await-thenable": "warn",
+    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-for-in-array": "warn",
+    "no-implied-eval": "off",
+    "@typescript-eslint/no-implied-eval": "warn",
+    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+    "@typescript-eslint/no-unsafe-argument": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+    "@typescript-eslint/no-unsafe-return": "warn",
+    "require-await": "off",
+    "@typescript-eslint/require-await": "warn",
+    "@typescript-eslint/restrict-plus-operands": "warn",
+    "@typescript-eslint/unbound-method": "warn",
     "@typescript-eslint/adjacent-overload-signatures": "warn",
     "@typescript-eslint/array-type": [
       "warn",
@@ -31,7 +25,6 @@ module.exports = {
         default: "array-simple",
       },
     ],
-    "@typescript-eslint/await-thenable": "warn",
     "@typescript-eslint/class-literal-property-style": "warn",
     "@typescript-eslint/consistent-indexed-object-style": ["warn", "record"],
     "@typescript-eslint/consistent-type-assertions": "warn",
@@ -43,7 +36,7 @@ module.exports = {
     "@typescript-eslint/no-confusing-non-null-assertion": "warn",
     "@typescript-eslint/no-empty-interface": "warn",
     "@typescript-eslint/no-extra-non-null-assertion": "warn",
-    "@typescript-eslint/no-floating-promises": "warn",
+
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/no-misused-new": "warn",
     "@typescript-eslint/no-namespace": "warn",
@@ -57,13 +50,8 @@ module.exports = {
     "@typescript-eslint/no-unnecessary-condition": "warn",
     "@typescript-eslint/no-unnecessary-qualifier": "warn",
     "@typescript-eslint/no-unnecessary-type-arguments": "warn",
-    "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+
     "@typescript-eslint/no-unnecessary-type-constraint": "warn",
-    "@typescript-eslint/no-unsafe-argument": "warn",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
-    "@typescript-eslint/no-unsafe-call": "warn",
-    "@typescript-eslint/no-unsafe-member-access": "warn",
-    "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/no-useless-empty-export": "warn",
     "@typescript-eslint/no-var-requires": "warn",
     "@typescript-eslint/non-nullable-type-assertion-style": "warn",
@@ -96,7 +84,6 @@ module.exports = {
         ignoreStringArrays: false,
       },
     ],
-    "@typescript-eslint/restrict-plus-operands": "warn",
     "@typescript-eslint/restrict-template-expressions": [
       "warn",
       {
@@ -136,17 +123,16 @@ module.exports = {
         variableDeclarationIgnoreFunction: false,
       },
     ],
-    "@typescript-eslint/unbound-method": "warn",
     "@typescript-eslint/unified-signatures": "warn",
-    // note you must disable the base rule as it can report incorrect errors
+    // note you must disable the base rule as it can report incorrect warns
     "dot-notation": "off",
     "@typescript-eslint/dot-notation": "warn",
-    // note you must disable the base rule as it can report incorrect errors
+    // note you must disable the base rule as it can report incorrect warns
     "func-call-spacing": "off",
     "@typescript-eslint/func-call-spacing": ["warn", "never"],
     "init-declarations": "off",
     "@typescript-eslint/init-declarations": "warn",
-    // note you must disable the base rule as it can report incorrect errors
+    // note you must disable the base rule as it can report incorrect warns
     "lines-between-class-members": "off",
     "@typescript-eslint/lines-between-class-members": ["warn", "always", { exceptAfterOverload: false }],
     "@typescript-eslint/no-array-constructor": "warn",
@@ -155,7 +141,6 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-extra-parens": "warn",
     "@typescript-eslint/no-extra-semi": "warn",
-    "@typescript-eslint/no-implied-eval": "warn",
     "@typescript-eslint/no-invalid-this": "warn",
     "@typescript-eslint/no-loop-func": "warn",
     "@typescript-eslint/no-loss-of-precision": "warn",
@@ -166,7 +151,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "warn",
     "@typescript-eslint/no-useless-constructor": "warn",
-    // note you must disable the base rule as it can report incorrect errors
+    // note you must disable the base rule as it can report incorrect warns
     "padding-line-between-statements": "off",
     "@typescript-eslint/padding-line-between-statements": [
       "warn",
@@ -178,20 +163,16 @@ module.exports = {
     ],
     quotes: "off",
     "@typescript-eslint/quotes": ["warn", "double"],
-    "@typescript-eslint/require-await": "warn",
     "@typescript-eslint/return-await": "warn",
-    // note you must disable the base rule as it can report incorrect errors
+    // note you must disable the base rule as it can report incorrect warns
     semi: "off",
     "@typescript-eslint/semi": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/consistent-type-exports": ["warn", { fixMixedExportsWithInlineTypeSpecifier: false }],
     "@typescript-eslint/ban-tslint-comment": "warn",
-    "@typescript-eslint/no-misused-promises": "warn",
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-dynamic-delete": "warn",
-    "@typescript-eslint/no-for-in-array": "warn",
     "@typescript-eslint/no-invalid-void-type": "warn",
-    "@typescript-eslint/no-explicit-any": "warn",
     "import/no-extraneous-dependencies": [
       "warn",
       { devDependencies: ["**/*.test.ts", "**/*.test.tsx", "**/setupTests.ts"] },

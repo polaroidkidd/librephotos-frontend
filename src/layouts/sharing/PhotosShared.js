@@ -7,7 +7,7 @@ import { PhotosetType } from "../../reducers/photosReducer";
 class GroupHeader extends Component {
   render() {
     const owner = this.props.pub.publicUserList.filter((e) => e.id === this.props.group.userId)[0];
-    var displayName = this.props.group.userId;
+    let displayName = this.props.group.userId;
     if (owner && owner.last_name.length + owner.first_name.length > 0) {
       displayName = owner.first_name + " " + owner.last_name;
     } else if (owner) {

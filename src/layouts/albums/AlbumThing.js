@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Icon, Header, Loader } from "semantic-ui-react";
 import { Grid, AutoSizer } from "react-virtualized";
-import { fetchThingAlbumsList } from "../../actions/albumsActions";
+import { fetchThingAlbumsList } from "../../store/albums/albumsActions";
 import { Tile } from "../../components/Tile";
 import { Link } from "react-router-dom";
 import { TOP_MENU_HEIGHT } from "../../ui-constants";
 import { compose } from "redux";
 import { withTranslation } from "react-i18next";
 
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 export class AlbumThing extends Component {
   constructor() {
@@ -37,7 +37,7 @@ export class AlbumThing extends Component {
   }
 
   calculateEntrySquareSize() {
-    var numEntrySquaresPerRow = 6;
+    let numEntrySquaresPerRow = 6;
     if (window.innerWidth < 600) {
       numEntrySquaresPerRow = 2;
     } else if (window.innerWidth < 800) {
@@ -48,9 +48,9 @@ export class AlbumThing extends Component {
       numEntrySquaresPerRow = 5;
     }
 
-    var columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
+    let columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
 
-    var entrySquareSize = columnWidth / numEntrySquaresPerRow;
+    let entrySquareSize = columnWidth / numEntrySquaresPerRow;
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -60,7 +60,7 @@ export class AlbumThing extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var albumThingIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
+    let albumThingIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumThingIndex < this.props.albumsThingList.length) {
       return (
         <div key={key} style={style}>

@@ -4,7 +4,7 @@ import { logout } from "../actions/authActions";
 import { fetchInferredFacesList, fetchLabeledFacesList } from "./facesActions";
 import { fetchUserSelfDetails } from "./userActions";
 import { fetchPeople } from "./peopleActions";
-import { fetchAlbumDateList } from "./albumsActions";
+import { fetchAlbumDateList } from "../store/albums/albumsActions";
 import { scanPhotos } from "../actions/photosActions";
 import i18n from "../i18n";
 
@@ -288,7 +288,7 @@ export function deleteMissingPhotos() {
       type: "SET_WORKER_RUNNING_JOB",
       payload: { job_type_str: "Delete Missing Photos" },
     });
-    Server.get(`deletemissingphotos`)
+    Server.get("deletemissingphotos")
       .then((response) => {
         dispatch(
           notify(i18n.t("toasts.deletemissingphotos"), {
@@ -318,7 +318,7 @@ export function generateEventAlbums() {
       type: "SET_WORKER_RUNNING_JOB",
       payload: { job_type_str: "Generate Event Albums" },
     });
-    Server.get(`autoalbumgen/`)
+    Server.get("autoalbumgen/")
       .then((response) => {
         dispatch(
           notify(i18n.t("toasts.generateeventalbums"), {
@@ -377,7 +377,7 @@ export function generateEventAlbumTitles() {
 export function fetchExampleSearchTerms() {
   return function (dispatch) {
     dispatch({ type: "FETCH_EXAMPLE_SEARCH_TERMS" });
-    Server.get(`searchtermexamples/`)
+    Server.get("searchtermexamples/")
       .then((response) => {
         dispatch({
           type: "FETCH_EXAMPLE_SEARCH_TERMS_FULFILLED",
@@ -393,7 +393,7 @@ export function fetchExampleSearchTerms() {
 export function fetchLocationSunburst() {
   return function (dispatch) {
     dispatch({ type: "FETCH_LOCATION_SUNBURST" });
-    Server.get(`locationsunburst/`)
+    Server.get("locationsunburst/")
       .then((response) => {
         dispatch({
           type: "FETCH_LOCATION_SUNBURST_FULFILLED",
@@ -408,7 +408,7 @@ export function fetchLocationSunburst() {
 
 export function fetchLocationTimeline(dispatch) {
   dispatch({ type: "FETCH_LOCATION_TIMELINE" });
-  Server.get(`locationtimeline/`)
+  Server.get("locationtimeline/")
     .then((response) => {
       dispatch({
         type: "FETCH_LOCATION_TIMELINE_FULFILLED",
@@ -423,7 +423,7 @@ export function fetchLocationTimeline(dispatch) {
 export function fetchCountStats() {
   return function (dispatch) {
     dispatch({ type: "FETCH_COUNT_STATS" });
-    Server.get(`stats/`)
+    Server.get("stats/")
       .then((response) => {
         dispatch({
           type: "FETCH_COUNT_STATS_FULFILLED",
@@ -439,7 +439,7 @@ export function fetchCountStats() {
 export function fetchLocationClusters() {
   return function (dispatch) {
     dispatch({ type: "FETCH_LOCATION_CLUSTERS" });
-    Server.get(`locclust/`)
+    Server.get("locclust/")
       .then((response) => {
         dispatch({
           type: "FETCH_LOCATION_CLUSTERS_FULFILLED",
@@ -454,7 +454,7 @@ export function fetchLocationClusters() {
 
 export function fetchPhotoMonthCounts(dispatch) {
   dispatch({ type: "FETCH_PHOTO_MONTH_COUNTS" });
-  Server.get(`photomonthcounts/`)
+  Server.get("photomonthcounts/")
     .then((response) => {
       dispatch({
         type: "FETCH_PHOTO_MONTH_COUNTS_FULFILLED",
@@ -468,7 +468,7 @@ export function fetchPhotoMonthCounts(dispatch) {
 
 export function fetchWordCloud(dispatch) {
   dispatch({ type: "FETCH_WORDCLOUD" });
-  Server.get(`wordcloud/`)
+  Server.get("wordcloud/")
     .then((response) => {
       dispatch({ type: "FETCH_WORDCLOUD_FULFILLED", payload: response.data });
     })

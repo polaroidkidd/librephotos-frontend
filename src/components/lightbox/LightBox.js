@@ -8,7 +8,7 @@ import "react-image-lightbox/style.css"; // This only needs to be imported once 
 import Toolbar from "./Toolbar";
 import Sidebar from "./Sidebar";
 
-var LIGHTBOX_SIDEBAR_WIDTH = 360;
+let LIGHTBOX_SIDEBAR_WIDTH = 360;
 if (window.innerWidth < 600) {
   LIGHTBOX_SIDEBAR_WIDTH = window.innerWidth;
 }
@@ -63,7 +63,7 @@ export class LightBox extends Component {
 
   render() {
     if (!this.isVideo()) {
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         setTimeout(() => {
           // Fix large wide images when side bar open; retry once per 250ms over 2.5 seconds
           if (document.getElementsByClassName("ril-image-current").length > 0) {
@@ -72,7 +72,7 @@ export class LightBox extends Component {
             });
 
             // 360px side bar /2 = 180px to the left = re-centers a wide image
-            var translate = this.state.lightboxSidebarShow && this.state.wideImg ? `-180px` : "";
+            let translate = this.state.lightboxSidebarShow && this.state.wideImg ? "-180px" : "";
 
             if (document.getElementsByClassName("ril-image-current")[0].style.left !== translate) {
               document.getElementsByClassName("ril-image-current")[0].style.left = translate;

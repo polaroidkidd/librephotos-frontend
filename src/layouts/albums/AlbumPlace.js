@@ -5,7 +5,7 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { fetchLocationClusters } from "../../actions/utilActions";
 import { serverAddress } from "../../api_client/apiClient";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { fetchPlaceAlbumsList } from "../../actions/albumsActions";
+import { fetchPlaceAlbumsList } from "../../store/albums/albumsActions";
 import { Grid, AutoSizer } from "react-virtualized";
 import { countryNames } from "../../util/countryNames";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ import { TOP_MENU_HEIGHT } from "../../ui-constants";
 import { compose } from "redux";
 import { withTranslation } from "react-i18next";
 
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 export class AlbumPlace extends Component {
   state = {
@@ -52,7 +52,7 @@ export class AlbumPlace extends Component {
 
     console.log("Map was just set visible.");
 
-    var resizeDone = false;
+    let resizeDone = false;
 
     // attempt resize 8 times; mapRef.current might be undefined
     for (let i = 0; i < 8; i++) {
@@ -137,7 +137,7 @@ export class AlbumPlace extends Component {
   }
 
   preprocess() {
-    var markers = this.props.locationClusters.map(function (loc) {
+    let markers = this.props.locationClusters.map(function (loc) {
       if (loc[0] !== 0) {
         return <Marker position={[loc[0], loc[1]]} title={loc[2]} />;
       }
@@ -151,7 +151,7 @@ export class AlbumPlace extends Component {
   }
 
   calculateEntrySquareSize() {
-    var numEntrySquaresPerRow = 6;
+    let numEntrySquaresPerRow = 6;
     if (window.innerWidth < 600) {
       numEntrySquaresPerRow = 2;
     } else if (window.innerWidth < 800) {
@@ -162,9 +162,9 @@ export class AlbumPlace extends Component {
       numEntrySquaresPerRow = 5;
     }
 
-    var columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
+    let columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
 
-    var entrySquareSize = columnWidth / numEntrySquaresPerRow;
+    let entrySquareSize = columnWidth / numEntrySquaresPerRow;
     this.setState({
       ...this.state,
       width: window.innerWidth,
@@ -175,8 +175,8 @@ export class AlbumPlace extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var place = this.state.visiblePlaceAlbums;
-    var albumPlaceIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
+    let place = this.state.visiblePlaceAlbums;
+    let albumPlaceIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumPlaceIndex < place.length) {
       return (
         <div key={key} style={style}>
@@ -216,7 +216,7 @@ export class AlbumPlace extends Component {
   render() {
     console.log(this.state);
     if (this.props.fetchedLocationClusters) {
-      var markers = this.preprocess();
+      let markers = this.preprocess();
 
       return (
         <div>

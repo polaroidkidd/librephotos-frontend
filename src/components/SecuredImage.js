@@ -23,9 +23,10 @@ export class SecuredImage extends Component {
         console.log("fail");
       });
   }
+
   render() {
     const { imgData } = this.state;
-    var newProps = this.props;
+    let newProps = this.props;
     if (imgData) {
       return <Image {...newProps} src={"data:image/jpeg;base64," + imgData} />;
     }

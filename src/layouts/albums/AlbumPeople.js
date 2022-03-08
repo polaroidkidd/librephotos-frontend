@@ -9,7 +9,7 @@ import { TOP_MENU_HEIGHT } from "../../ui-constants";
 import { compose } from "redux";
 import { withTranslation, Trans } from "react-i18next";
 
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 export class AlbumPeople extends Component {
   constructor(props) {
@@ -37,13 +37,16 @@ export class AlbumPeople extends Component {
       personID: personID,
       personName: personName,
     });
+
   openRenameDialog = (personID, personName) =>
     this.setState({
       openRenameDialog: true,
       personID: personID,
       personName: personName,
     });
+
   closeDeleteDialog = () => this.setState({ openDeleteDialog: false });
+
   closeRenameDialog = () => this.setState({ openRenameDialog: false });
 
   componentDidMount() {
@@ -59,7 +62,7 @@ export class AlbumPeople extends Component {
   }
 
   calculateEntrySquareSize() {
-    var numEntrySquaresPerRow = 6;
+    let numEntrySquaresPerRow = 6;
     if (window.innerWidth < 600) {
       numEntrySquaresPerRow = 2;
     } else if (window.innerWidth < 800) {
@@ -70,9 +73,9 @@ export class AlbumPeople extends Component {
       numEntrySquaresPerRow = 5;
     }
 
-    var columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
+    let columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
 
-    var entrySquareSize = columnWidth / numEntrySquaresPerRow;
+    let entrySquareSize = columnWidth / numEntrySquaresPerRow;
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -82,7 +85,7 @@ export class AlbumPeople extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var albumPersonIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
+    let albumPersonIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumPersonIndex < this.props.people.length) {
       return (
         <div key={key} style={style}>

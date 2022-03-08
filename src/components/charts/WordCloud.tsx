@@ -1,10 +1,10 @@
 import React from "react";
 import _ from "lodash";
 import { Header, Loader } from "semantic-ui-react";
-const { Chart, Transform, Cloud } = require("rumble-charts");
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../hooks";
 import useDimensions from "react-cool-dimensions";
+const { Chart, Transform, Cloud } = require("rumble-charts");
 
 type Props = {
   type: string;
@@ -24,7 +24,7 @@ export const WordCloud = (props: Props) => {
   const { t } = useTranslation();
 
   const title = () => {
-    var title = t("people");
+    let title = t("people");
     if (props.type === "captions") {
       title = t("things");
     }

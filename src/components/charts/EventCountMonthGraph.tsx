@@ -22,7 +22,7 @@ export const EventCountMonthGraph = () => {
   }, [dispatch]); // Only run on first render
 
   if (fetchedPhotoMonthCounts) {
-    var countDict = photoMonthCounts;
+    const countDict = photoMonthCounts;
     var series = countDict.map(function (el: any) {
       return { y: el.count, month: el.month };
     });
@@ -40,7 +40,7 @@ export const EventCountMonthGraph = () => {
     );
   }
 
-  var data = [
+  const data = [
     {
       data: series,
     },

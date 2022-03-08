@@ -6,7 +6,7 @@ export function fetchPeople(dispatch) {
   dispatch({ type: "FETCH_PEOPLE" });
   Server.get("persons/?page_size=1000")
     .then((response) => {
-      var mappedPeopleDropdownOptions = response.data.results.map(function (person) {
+      let mappedPeopleDropdownOptions = response.data.results.map(function (person) {
         return {
           key: person.id,
           value: person.name,
@@ -134,10 +134,10 @@ export function addPersonAndSetLabelToFace(person_name, face_id) {
     Server.post("persons/", { name: person_name })
       .then((response1) => {
         // Make patch request to update person label
-        var endpoint = `faces/${face_id}/`;
+        let endpoint = `faces/${face_id}/`;
         Server.patch(endpoint, { person: { name: person_name } })
           .then((response2) => {
-            var personDropdownOption2 = {
+            let personDropdownOption2 = {
               text: response2.data.person.name,
               value: response2.data.person.name,
               key: response2.data.person.id,

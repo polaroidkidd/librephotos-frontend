@@ -11,7 +11,7 @@ export class CountStats extends Component {
   }
 
   render() {
-    var statsGroup;
+    let statsGroup;
     if (this.props.fetchedCountStats) {
       statsGroup = (
         <div style={{ height: "60px" }}>

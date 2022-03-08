@@ -226,7 +226,7 @@ export function fetchFacesList() {
 export function labelFacePerson(face_id, person_name) {
   return function (dispatch) {
     dispatch({ type: "LABEL_FACE_PERSON" });
-    var endpoint = `faces/${face_id}/`;
+    let endpoint = `faces/${face_id}/`;
     Server.patch(endpoint, { person: { name: person_name } })
       .then((response) => {
         dispatch({

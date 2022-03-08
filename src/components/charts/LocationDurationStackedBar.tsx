@@ -5,13 +5,14 @@ import { fetchLocationTimeline } from "../../actions/utilActions";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import moment from "moment";
-const { Hint, XYPlot, XAxis, HorizontalBarSeries } = require("react-vis");
 
 import { useTranslation } from "react-i18next";
+const { Hint, XYPlot, XAxis, HorizontalBarSeries } = require("react-vis");
+
 type Hint = {
   y: number;
   x: number;
-  loc: String;
+  loc: string;
   start: number;
   end: number;
 };

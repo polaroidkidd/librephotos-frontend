@@ -14,8 +14,9 @@ export class PublicUserList extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPublicUserList());
   }
+
   render() {
-    var menu;
+    let menu;
     if (this.props.auth.access) {
       menu = (
         <div>
@@ -50,7 +51,7 @@ export class PublicUserList extends Component {
           </div>
           <div style={{ padding: 10 }}>
             {this.props.pub.publicUserList.map((el, idx) => {
-              var displayName;
+              let displayName;
               if (el.first_name.length > 0 && el.last_name.length > 0) {
                 displayName = el.first_name + " " + el.last_name;
               } else {

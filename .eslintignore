@@ -1,2 +1,4 @@
 .eslintrc.js
+.eslintrc.commitHook.js
 prettier.config.js
+librephotos-client-api

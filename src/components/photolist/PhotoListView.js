@@ -18,7 +18,7 @@ import { SelectionActions } from "./SelectionActions";
 import { setAlbumCoverForPerson } from "../../actions/peopleActions";
 import { TrashcanActions } from "./TrashcanActions";
 
-var TIMELINE_SCROLL_WIDTH = 0;
+let TIMELINE_SCROLL_WIDTH = 0;
 
 export class PhotoListView extends Component {
   constructor(props) {
@@ -50,6 +50,7 @@ export class PhotoListView extends Component {
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
   }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
   }
@@ -61,7 +62,7 @@ export class PhotoListView extends Component {
   }
 
   handleSelection = (item) => {
-    var newSelectedItems = this.state.selectionState.selectedItems;
+    let newSelectedItems = this.state.selectionState.selectedItems;
     if (newSelectedItems.find((selectedItem) => selectedItem.id === item.id)) {
       newSelectedItems = newSelectedItems.filter((value) => value.id !== item.id);
     } else {
@@ -75,7 +76,7 @@ export class PhotoListView extends Component {
   };
 
   handleSelections = (items) => {
-    var newSelectedItems = this.state.selectionState.selectedItems;
+    let newSelectedItems = this.state.selectionState.selectedItems;
     items.forEach((item) => {
       if (newSelectedItems.find((selectedItem) => selectedItem.id === item.id)) {
         newSelectedItems = newSelectedItems.filter((value) => value.id !== item.id);
@@ -92,13 +93,13 @@ export class PhotoListView extends Component {
   handleClick = (event, item) => {
     //if an image is selectable, then handle shift click
     if (this.props.selectable && event.shiftKey) {
-      var lastSelectedElement = this.state.selectionState.selectedItems.slice(-1)[0];
+      let lastSelectedElement = this.state.selectionState.selectedItems.slice(-1)[0];
       if (lastSelectedElement === undefined) {
         this.handleSelection(item);
         return;
       }
-      var indexOfCurrentlySelectedItem = this.props.idx2hash.findIndex((image) => image.id === item.id);
-      var indexOfLastSelectedItem = this.props.idx2hash.findIndex((image) => image.id === lastSelectedElement.id);
+      let indexOfCurrentlySelectedItem = this.props.idx2hash.findIndex((image) => image.id === item.id);
+      let indexOfLastSelectedItem = this.props.idx2hash.findIndex((image) => image.id === lastSelectedElement.id);
       console.log(indexOfCurrentlySelectedItem);
       console.log(indexOfLastSelectedItem);
       if (indexOfCurrentlySelectedItem > indexOfLastSelectedItem) {
@@ -155,7 +156,7 @@ export class PhotoListView extends Component {
   render() {
     this.closeLightboxIfImageIndexIsOutOfSync();
 
-    var isUserAlbum = false;
+    let isUserAlbum = false;
     if (this.props.route.location.pathname.startsWith("/useralbum/")) {
       isUserAlbum = true;
     }
@@ -284,7 +285,7 @@ export class PhotoListView extends Component {
               this.getPhotoDetails(this.props.idx2hash[this.state.lightboxImageIndex].id);
             }}
             onMovePrevRequest={() => {
-              var prevIndex =
+              let prevIndex =
                 (this.state.lightboxImageIndex + this.props.idx2hash.length - 1) % this.props.idx2hash.length;
               this.setState({
                 lightboxImageIndex: prevIndex,
@@ -293,7 +294,7 @@ export class PhotoListView extends Component {
               this.getPhotoDetails(this.props.idx2hash[prevIndex].id);
             }}
             onMoveNextRequest={() => {
-              var nextIndex =
+              let nextIndex =
                 (this.state.lightboxImageIndex + this.props.idx2hash.length + 1) % this.props.idx2hash.length;
               this.setState({
                 lightboxImageIndex: nextIndex,

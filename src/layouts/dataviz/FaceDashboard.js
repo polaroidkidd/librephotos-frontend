@@ -14,7 +14,7 @@ import { FaceComponent } from "../../components/facedashboard/FaceComponent";
 import { HeaderComponent } from "../../components/facedashboard/HeaderComponent";
 import { TabComponent } from "../../components/facedashboard/TabComponent";
 import { ButtonHeaderGroup } from "../../components/facedashboard/ButtonHeaderGroup";
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 const SPEED_THRESHOLD = 500;
 
@@ -74,16 +74,16 @@ export class FaceDashboard extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    var inferredGroupedByPerson = _.groupBy(nextProps.inferredFacesList, (el) => el.person_name);
-    var inferredGroupedByPersonList = _.sortBy(_.toPairsIn(inferredGroupedByPerson), (el) => el[0]).map((el) => {
+    let inferredGroupedByPerson = _.groupBy(nextProps.inferredFacesList, (el) => el.person_name);
+    let inferredGroupedByPersonList = _.sortBy(_.toPairsIn(inferredGroupedByPerson), (el) => el[0]).map((el) => {
       return {
         person_name: el[0],
         faces: _.reverse(_.sortBy(el[1], (el2) => el2.person_label_probability)),
       };
     });
 
-    var labeledGroupedByPerson = _.groupBy(nextProps.labeledFacesList, (el) => el.person_name);
-    var labeledGroupedByPersonList = _.sortBy(_.toPairsIn(labeledGroupedByPerson), (el) => el[0]).map((el) => {
+    let labeledGroupedByPerson = _.groupBy(nextProps.labeledFacesList, (el) => el.person_name);
+    let labeledGroupedByPersonList = _.sortBy(_.toPairsIn(labeledGroupedByPerson), (el) => el[0]).map((el) => {
       return { person_name: el[0], faces: el[1] };
     });
     const inferredCellContents = calculateFaceGridCells(
@@ -105,7 +105,7 @@ export class FaceDashboard extends Component {
   }
 
   handleResize() {
-    var columnWidth = window.innerWidth - 5 - 5 - 10;
+    let columnWidth = window.innerWidth - 5 - 5 - 10;
     if (this.props.showSidebar) {
       columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 10;
     }
@@ -146,19 +146,19 @@ export class FaceDashboard extends Component {
       return;
     }
     if (e.shiftKey) {
-      var currentCellsInRowFormat =
+      let currentCellsInRowFormat =
         this.state.activeItem === "labeled" ? this.state.labeledCellContents : this.state.inferredCellContents;
 
-      var allFacesInCells = [];
-      for (var i = 0; i < currentCellsInRowFormat.length; i++) {
-        for (var j = 0; j < this.state.numEntrySquaresPerRow; j++) {
+      let allFacesInCells = [];
+      for (let i = 0; i < currentCellsInRowFormat.length; i++) {
+        for (let j = 0; j < this.state.numEntrySquaresPerRow; j++) {
           allFacesInCells.push(currentCellsInRowFormat[i][j]);
         }
       }
-      var start = allFacesInCells.indexOf(cell);
-      var end = allFacesInCells.indexOf(this.state.lastChecked);
+      let start = allFacesInCells.indexOf(cell);
+      let end = allFacesInCells.indexOf(this.state.lastChecked);
 
-      var facesToSelect = allFacesInCells.slice(Math.min(start, end), Math.max(start, end) + 1);
+      let facesToSelect = allFacesInCells.slice(Math.min(start, end), Math.max(start, end) + 1);
       facesToSelect.forEach((face) => this.onFaceSelect(face.id));
       return;
     }
@@ -167,7 +167,7 @@ export class FaceDashboard extends Component {
   }
 
   onFaceSelect(faceID) {
-    var selectedFaces = this.state.selectedFaces;
+    let selectedFaces = this.state.selectedFaces;
     if (selectedFaces.includes(faceID)) {
       selectedFaces = selectedFaces.filter((item) => item !== faceID);
     } else {
@@ -197,7 +197,7 @@ export class FaceDashboard extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var cell;
+    let cell;
     if (this.state.activeItem === "labeled") {
       cell = this.state.labeledCellContents[rowIndex][columnIndex];
     } else {

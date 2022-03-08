@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "react-virtualized/styles.css"; // only needs to be imported once
 import { connect } from "react-redux";
-import { fetchUserAlbumsList, addToUserAlbum, createNewUserAlbum } from "../../actions/albumsActions";
+import { fetchUserAlbumsList, addToUserAlbum, createNewUserAlbum } from "../../store/albums/albumsActions";
 import { Header, Divider, Image, Input, Popup, Button } from "semantic-ui-react";
 import { serverAddress } from "../../api_client/apiClient";
 import _ from "lodash";
@@ -46,8 +46,9 @@ const customStyles = {
 
 export class ModalAlbumEdit extends Component {
   state = { newAlbumTitle: "" };
+
   render() {
-    var filteredUserAlbumList;
+    let filteredUserAlbumList;
     if (this.state.newAlbumTitle.length > 0) {
       filteredUserAlbumList = this.props.albumsUserList.filter((el) =>
         fuzzy_match(el.title.toLowerCase(), this.state.newAlbumTitle.toLowerCase())

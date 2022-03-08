@@ -10,7 +10,7 @@ import {
   fetchThingAlbumsList,
   fetchUserAlbum,
   fetchUserAlbumsList,
-} from "../actions/albumsActions";
+} from "../store/albums/albumsActions";
 import { fetchPeople } from "../actions/peopleActions";
 import { searchPeople, searchPhotos, searchPlaceAlbums, searchThingAlbums } from "../actions/searchActions";
 import { fetchExampleSearchTerms } from "../actions/utilActions";
@@ -20,7 +20,7 @@ import { TOP_MENU_HEIGHT } from "../ui-constants";
 import { withTranslation } from "react-i18next";
 import { compose } from "redux";
 import { ChunkedUploadButton } from "./ChunkedUploadButton";
-var ENTER_KEY = 13;
+let ENTER_KEY = 13;
 
 function fuzzy_match(str, pattern) {
   if (pattern.split("").length > 0) {
@@ -189,7 +189,7 @@ export class CustomSearch extends Component {
   }
 
   render() {
-    var searchBarWidth = this.state.width - this.state.width / 2.2;
+    let searchBarWidth = this.state.width - this.state.width / 2.2;
 
     const {
       filteredSuggestedUserAlbums,
@@ -336,7 +336,7 @@ export class CustomSearch extends Component {
                       <p
                         key={"suggestion_thing_" + thing.title}
                         onClick={() => {
-                          this.props.dispatch(push(`/search`));
+                          this.props.dispatch(push("/search"));
                           this.props.dispatch(searchPhotos(thing.title));
                         }}
                       >

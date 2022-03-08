@@ -52,8 +52,9 @@ const modalStyles = {
 
 export class ModalPersonEdit extends Component {
   state = { newPersonName: "" };
+
   render() {
-    var filteredPeopleList = this.props.people;
+    let filteredPeopleList = this.props.people;
     if (this.state.newPersonName.length > 0) {
       filteredPeopleList = this.props.people.filter((el) =>
         fuzzy_match(el.text.toLowerCase(), this.state.newPersonName.toLowerCase())
@@ -62,7 +63,7 @@ export class ModalPersonEdit extends Component {
 
     const allFaces = _.concat(this.props.inferredFacesList, this.props.labeledFacesList);
 
-    var selectedImageIDs = this.props.selectedFaces.map((faceID) => {
+    let selectedImageIDs = this.props.selectedFaces.map((faceID) => {
       const res = allFaces.filter((face) => face.id === faceID)[0].image;
       const splitBySlash = res.split("/");
       console.log(splitBySlash[splitBySlash.length - 1]);

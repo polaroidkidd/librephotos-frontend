@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { fetchAlbumDate, fetchAlbumDateList } from "../../actions/albumsActions";
+import { fetchAlbumDate, fetchAlbumDateList } from "../../store/albums/albumsActions";
 import { PhotoListView } from "../../components/photolist/PhotoListView";
 import _ from "lodash";
 import { TopMenu } from "../../components/menubars/TopMenu";
@@ -7,7 +7,8 @@ import { SideMenuNarrow } from "../../components/menubars/SideMenuNarrow";
 import { TopMenuPublic } from "../../components/menubars/TopMenuPublic";
 import { SideMenuNarrowPublic } from "../../components/menubars/SideMenuNarrowPublic";
 import { LEFT_MENU_WIDTH, TOP_MENU_HEIGHT } from "../../ui-constants";
-import { PhotosetType, PhotosState } from "../../reducers/photosReducer";
+import type { PhotosState } from "../../reducers/photosReducer";
+import { PhotosetType } from "../../reducers/photosReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useTranslation } from "react-i18next";
 
@@ -21,9 +22,7 @@ type fetchedGroup = {
 };
 
 export const UserPublicPage = (props: Props) => {
-  const { fetchedPhotosetType, photosFlat, photosGroupedByDate } = useAppSelector(
-    (state) => state.photos as PhotosState
-  );
+  const { fetchedPhotosetType, photosFlat, photosGroupedByDate } = useAppSelector((state) => state.photos);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { auth, ui } = useAppSelector((state) => state);
@@ -50,10 +49,10 @@ export const UserPublicPage = (props: Props) => {
   const getAlbums = (visibleGroups: any) => {
     console.log("visibleGroups", visibleGroups);
     visibleGroups.forEach((group: any) => {
-      var visibleImages = group.items;
+      const visibleImages = group.items;
       if (visibleImages.filter((i: any) => i.isTemp && i.isTemp != undefined).length > 0) {
-        var firstTempObject = visibleImages.filter((i: any) => i.isTemp)[0];
-        var page = Math.ceil((parseInt(firstTempObject.id) + 1) / 100);
+        const firstTempObject = visibleImages.filter((i: any) => i.isTemp)[0];
+        const page = Math.ceil((parseInt(firstTempObject.id) + 1) / 100);
         setGroup({ id: group.id, page: page });
       }
     });
@@ -64,7 +63,7 @@ export const UserPublicPage = (props: Props) => {
     []
   );
 
-  var menu;
+  let menu;
   if (auth.access) {
     menu = (
       <div>

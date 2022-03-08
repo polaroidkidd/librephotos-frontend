@@ -14,8 +14,8 @@ import { ScrollSpeed, SCROLL_DEBOUNCE_DURATION } from "../../util/scrollUtils";
 import debounce from "lodash/debounce";
 
 const SPEED_THRESHOLD = 300;
-var SIDEBAR_WIDTH = 85;
-var DAY_HEADER_HEIGHT = 70;
+let SIDEBAR_WIDTH = 85;
+let DAY_HEADER_HEIGHT = 70;
 
 export class AlbumsShared extends Component {
   state = {
@@ -66,7 +66,7 @@ export class AlbumsShared extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    var albumGridContents;
+    let albumGridContents;
     if (prevState.isSharedToMe) {
       albumGridContents = calculateSharedAlbumGridCells(
         nextProps.albums.albumsSharedToMe,
@@ -85,7 +85,7 @@ export class AlbumsShared extends Component {
   }
 
   handleResize() {
-    var columnWidth = 0;
+    let columnWidth = 0;
     if (this.props.showSidebar) {
       columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 10;
     } else {
@@ -112,7 +112,7 @@ export class AlbumsShared extends Component {
       if (cell.user_id) {
         // sharer info header
         const owner = this.props.pub.publicUserList.filter((e) => e.id === cell.user_id)[0];
-        var displayName = cell.user_id;
+        let displayName = cell.user_id;
         if (owner && owner.last_name.length + owner.first_name.length > 0) {
           displayName = owner.first_name + " " + owner.last_name;
         } else if (owner) {
@@ -211,7 +211,7 @@ export class AlbumsShared extends Component {
                     ref={this.photoGridRef}
                     onSectionRendered={({ rowStartIndex }) => {
                       const cell = this.state.albumGridContents[rowStartIndex][0];
-                      var owner = "";
+                      let owner = "";
                       if (cell.user_id) {
                         owner = cell.albums[0].owner.username;
                       } else {

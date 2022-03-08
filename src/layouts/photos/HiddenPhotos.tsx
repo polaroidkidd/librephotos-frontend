@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { fetchHiddenPhotos } from "../../actions/photosActions";
 import _ from "lodash";
 import { PhotoListView } from "../../components/photolist/PhotoListView";
-import { PhotosetType, PhotosState } from "../../reducers/photosReducer";
+import type { PhotosState } from "../../reducers/photosReducer";
+import { PhotosetType } from "../../reducers/photosReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useTranslation } from "react-i18next";
 
 export const HiddenPhotos = () => {
-  const { fetchedPhotosetType, photosFlat, photosGroupedByDate } = useAppSelector(
-    (state) => state.photos as PhotosState
-  );
+  const { fetchedPhotosetType, photosFlat, photosGroupedByDate } = useAppSelector((state) => state.photos);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 

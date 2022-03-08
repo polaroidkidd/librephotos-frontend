@@ -1,5 +1,6 @@
-import { AnyAction } from "redux";
-import { FETCH_USER_ALBUM_FULFILLED, FETCH_USER_ALBUM_REJECTED } from "../actions/albumsActions";
+import type { AnyAction } from "redux";
+import { FETCH_USER_ALBUM_FULFILLED, FETCH_USER_ALBUM_REJECTED } from "../store/albums/albumsActions";
+import type { UserPhotosGroup } from "../actions/photosActions";
 import {
   FETCH_NO_TIMESTAMP_PHOTOS_PAGINATED_FULFILLED,
   FETCH_NO_TIMESTAMP_PHOTOS_PAGINATED,
@@ -14,11 +15,10 @@ import {
   SET_PHOTOS_DELETED_FULFILLED,
   SET_PHOTOS_PUBLIC_FULFILLED,
   SET_PHOTOS_HIDDEN_FULFILLED,
-  UserPhotosGroup,
 } from "../actions/photosActions";
 import { SEARCH_PHOTOS_FULFILLED, SEARCH_PHOTOS_REJECTED } from "../actions/searchActions";
 import { addTempElementsToFlatList, getPhotosFlatFromGroupedByDate } from "../util/util";
-import { IncompleteDatePhotosGroup, Photo, PigPhoto } from "../actions/photosActions.types";
+import type { IncompleteDatePhotosGroup, Photo, PigPhoto } from "../actions/photosActions.types";
 
 export enum PhotosetType {
   NONE = "none",
@@ -41,7 +41,7 @@ export interface PhotosState {
   scannedPhotos: boolean;
   error: string | null;
 
-  photoDetails: { [key: string]: Photo };
+  photoDetails: Record<string, Photo>;
   fetchingPhotoDetail: boolean;
   fetchedPhotoDetail: boolean;
 
@@ -90,8 +90,8 @@ function resetPhotos(state: PhotosState, error: string) {
 }
 
 function updatePhotoDetails(state: PhotosState, action: AnyAction) {
-  var updatedPhotoDetails = action.payload.updatedPhotos as Photo[];
-  var newPhotoDetails = { ...state.photoDetails };
+  const updatedPhotoDetails = action.payload.updatedPhotos as Photo[];
+  const newPhotoDetails = { ...state.photoDetails };
 
   updatedPhotoDetails.forEach((photoDetails) => {
     newPhotoDetails[photoDetails.image_hash] = photoDetails;
@@ -104,10 +104,10 @@ function updatePhotoDetails(state: PhotosState, action: AnyAction) {
 }
 
 export default function photosReducer(state = initialPhotosState, action: AnyAction): PhotosState {
-  var updatedPhotoDetails;
-  var newPhotosFlat: PigPhoto[];
-  var newPhotosGroupedByDate: IncompleteDatePhotosGroup[];
-  var indexToReplace: number;
+  let updatedPhotoDetails;
+  let newPhotosFlat: PigPhoto[];
+  let newPhotosGroupedByDate: IncompleteDatePhotosGroup[];
+  let indexToReplace: number;
 
   switch (action.type) {
     case "GENERATE_PHOTO_CAPTION": {
@@ -166,18 +166,18 @@ export default function photosReducer(state = initialPhotosState, action: AnyAct
       return resetPhotos(state, action.payload);
     }
     case "FETCH_DATE_ALBUMS_RETRIEVE_FULFILLED": {
-      var page = action.payload.page;
+      const page = action.payload.page;
       newPhotosGroupedByDate = [...state.photosGroupedByDate];
       indexToReplace = newPhotosGroupedByDate.findIndex((group) => group.id === action.payload.datePhotosGroup.id);
-      var groupToChange = newPhotosGroupedByDate[indexToReplace];
+      const groupToChange = newPhotosGroupedByDate[indexToReplace];
       if (!groupToChange) {
         return {
           ...state,
         };
       }
-      var items = groupToChange.items;
-      var loadedItems = action.payload.datePhotosGroup.items;
-      var updatedItems = items
+      const items = groupToChange.items;
+      const loadedItems = action.payload.datePhotosGroup.items;
+      const updatedItems = items
         .slice(0, (page - 1) * 100)
         .concat(loadedItems)
         .concat(items.slice(page * 100));
@@ -207,9 +207,9 @@ export default function photosReducer(state = initialPhotosState, action: AnyAct
       return { ...state };
     }
     case FETCH_NO_TIMESTAMP_PHOTOS_PAGINATED_FULFILLED: {
-      var fetched_page = action.payload.fetchedPage;
-      var photos_count = action.payload.photosCount;
-      var current_photos = [...state.photosFlat];
+      const fetched_page = action.payload.fetchedPage;
+      const photos_count = action.payload.photosCount;
+      let current_photos = [...state.photosFlat];
       if (fetched_page == 1) {
         current_photos = addTempElementsToFlatList(photos_count);
       }

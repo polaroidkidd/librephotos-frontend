@@ -84,8 +84,8 @@ export function ConfigDatetime() {
         floated="left"
         onClick={() => {
           const newUserData = userSelfDetails;
-          delete newUserData["scan_directory"];
-          delete newUserData["avatar"];
+          delete newUserData.scan_directory;
+          delete newUserData.avatar;
           updateUser(newUserData, dispatch);
         }}
       >

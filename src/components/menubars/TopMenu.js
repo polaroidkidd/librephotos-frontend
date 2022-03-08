@@ -16,6 +16,7 @@ export class TopMenu extends Component {
   state = {
     width: window.innerWidth,
   };
+
   throttledFetchUserSelfDetails = _.throttle(
     (user_id) => {
       return this.props.dispatch(fetchUserSelfDetails(user_id));
@@ -41,7 +42,7 @@ export class TopMenu extends Component {
   }
 
   componentDidMount() {
-    var intervalId = setInterval(() => {
+    let intervalId = setInterval(() => {
       fetchWorkerAvailability(this.props.workerRunningJob, this.props.dispatch);
     }, 2000);
     this.setState({ intervalId: intervalId });

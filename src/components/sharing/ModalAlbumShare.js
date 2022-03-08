@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Checkbox, Popup, Input, Image, Icon, Header, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { fetchPublicUserList } from "../../actions/publicActions";
-import { setUserAlbumShared } from "../../actions/albumsActions";
+import { setUserAlbumShared } from "../../store/albums/albumsActions";
 import Modal from "react-modal";
 import moment from "moment";
 
@@ -46,8 +46,9 @@ export class ModalAlbumShare extends Component {
     userNameFilter: "",
     valShare: true,
   };
+
   render() {
-    var filteredUserList;
+    let filteredUserList;
     if (this.state.userNameFilter.length > 0) {
       filteredUserList = this.props.pub.publicUserList.filter(
         (el) =>
@@ -105,7 +106,7 @@ export class ModalAlbumShare extends Component {
           <Divider />
           {filteredUserList.length > 0 &&
             filteredUserList.map((item) => {
-              var displayName;
+              let displayName;
               if (item.first_name.length > 0 && item.last_name.length > 0) {
                 displayName = item.first_name + " " + item.last_name;
               } else {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchAutoAlbumsList } from "../../actions/albumsActions";
+import { fetchAutoAlbumsList } from "../../store/albums/albumsActions";
 import { Icon, Header, Loader, Image } from "semantic-ui-react";
 import { Grid, AutoSizer } from "react-virtualized";
 import { serverAddress } from "../../api_client/apiClient";
@@ -13,7 +13,7 @@ import { TOP_MENU_HEIGHT } from "../../ui-constants";
 import { compose } from "redux";
 import { withTranslation, Trans } from "react-i18next";
 
-var SIDEBAR_WIDTH = 85;
+let SIDEBAR_WIDTH = 85;
 
 export class AlbumAuto extends Component {
   constructor() {
@@ -37,7 +37,7 @@ export class AlbumAuto extends Component {
   }
 
   calculateEntrySquareSize() {
-    var numEntrySquaresPerRow = 6;
+    let numEntrySquaresPerRow = 6;
     if (window.innerWidth < 600) {
       numEntrySquaresPerRow = 2;
     } else if (window.innerWidth < 800) {
@@ -48,9 +48,9 @@ export class AlbumAuto extends Component {
       numEntrySquaresPerRow = 5;
     }
 
-    var columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
+    let columnWidth = window.innerWidth - SIDEBAR_WIDTH - 5 - 5 - 15;
 
-    var entrySquareSize = columnWidth / numEntrySquaresPerRow;
+    let entrySquareSize = columnWidth / numEntrySquaresPerRow;
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -60,7 +60,7 @@ export class AlbumAuto extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
-    var albumAutoIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
+    let albumAutoIndex = rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumAutoIndex < this.props.albumsAutoList.length) {
       return (
         <div key={key} style={style}>
@@ -124,7 +124,7 @@ export class AlbumAuto extends Component {
 
 export class EntrySquare extends Component {
   render() {
-    var images = this.props.cover_photos.map(function (photo) {
+    let images = this.props.cover_photos.map(function (photo) {
       return (
         <Image
           style={{ display: "inline-block", objectFit: "cover" }}

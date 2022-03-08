@@ -5,7 +5,7 @@ import { PhotosetType } from "../../reducers/photosReducer";
 import { Header, Icon, Loader, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { fetchPublicUserList } from "../../actions/publicActions";
-import { fetchUserAlbumsSharedToMe } from "../../actions/albumsActions";
+import { fetchUserAlbumsSharedToMe } from "../../store/albums/albumsActions";
 import { PhotosShared } from "./PhotosShared";
 import { AlbumsShared } from "./AlbumsShared";
 

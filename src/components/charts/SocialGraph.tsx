@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Loader } from "semantic-ui-react";
 import useDimensions from "react-cool-dimensions";
-const { Graph } = require("react-d3-graph");
 import { fetchSocialGraph } from "../../actions/peopleActions";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useTranslation } from "react-i18next";
+const { Graph } = require("react-d3-graph");
+
 type Props = {
   height: number;
 };
@@ -26,7 +27,7 @@ export const SocialGraph = (props: Props) => {
     }
   }, [dispatch]); // Only run on first render
 
-  var myConfig = {
+  const myConfig = {
     automaticRearrangeAfterDropNode: false,
     staticGraph: true,
     nodeHighlightBehavior: true,
@@ -46,7 +47,7 @@ export const SocialGraph = (props: Props) => {
     height: props.height,
     width: width,
   };
-  var graph;
+  let graph;
   if (fetchedSocialGraph && socialGraph.nodes.length > 0) {
     graph = <Graph id="social-graph" config={myConfig} data={socialGraph} />;
   } else {

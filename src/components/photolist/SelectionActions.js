@@ -11,7 +11,7 @@ import { copyToClipboard } from "../../util/util";
 import { Dropdown, Popup, Button, Icon } from "semantic-ui-react";
 import { serverAddress } from "../../api_client/apiClient";
 import { connect } from "react-redux";
-import { removeFromUserAlbum } from "../../actions/albumsActions";
+import { removeFromUserAlbum } from "../../store/albums/albumsActions";
 import { withTranslation, Trans } from "react-i18next";
 import { compose } from "redux";
 export class SelectionActions extends Component {
@@ -264,7 +264,7 @@ export class SelectionActions extends Component {
                       )
                     }
                     onClick={() => {
-                      var id = this.props.albumID;
+                      let id = this.props.albumID;
                       this.props.dispatch(
                         removeFromUserAlbum(
                           id,

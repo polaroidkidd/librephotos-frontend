@@ -14,7 +14,7 @@ export function searchPhotos(query) {
       dispatch({ type: SEARCH_PHOTOS, payload: query });
       Server.get(`photos/searchlist/?search=${query}`, { timeout: 100000 })
         .then((response) => {
-          var photosGroupedByDate = response.data.results;
+          let photosGroupedByDate = response.data.results;
           adjustDateFormat(photosGroupedByDate);
           dispatch({
             type: SEARCH_PHOTOS_FULFILLED,
@@ -36,11 +36,11 @@ export function searchPeople(query) {
     if (query.trim().length === 0) {
       dispatch({ type: SEARCH_EMPTY_QUERY_ERROR });
     } else {
-      var url = `persons/?search=${query}`;
+      let url = `persons/?search=${query}`;
       dispatch({ type: "SEARCH_PEOPLE" });
       Server.get(url)
         .then((response) => {
-          var mappedPeopleDropdownOptions = response.data.results.map(function (person) {
+          let mappedPeopleDropdownOptions = response.data.results.map(function (person) {
             return {
               key: person.id,
               value: person.name,

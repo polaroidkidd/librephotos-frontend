@@ -45,8 +45,9 @@ const modalStyles = {
 
 export class ModalPhotosShare extends Component {
   state = { userNameFilter: "", valShare: true };
+
   render() {
-    var filteredUserList;
+    let filteredUserList;
     if (this.state.userNameFilter.length > 0) {
       filteredUserList = this.props.pub.publicUserList.filter(
         (el) =>
@@ -61,7 +62,7 @@ export class ModalPhotosShare extends Component {
     }
     filteredUserList = filteredUserList.filter((el) => el.id !== this.props.auth.access.user_id);
 
-    var selectedImageSrcs = this.props.selectedImageHashes.map((image_hash) => {
+    let selectedImageSrcs = this.props.selectedImageHashes.map((image_hash) => {
       return serverAddress + "/media/square_thumbnails/" + image_hash;
     });
     return (

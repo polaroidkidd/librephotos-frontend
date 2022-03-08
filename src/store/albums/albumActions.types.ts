@@ -1,13 +1,9 @@
 import {
-  DatePhotosGroup,
   DatePhotosGroupSchema,
-  IncompleteDatePhotosGroup,
   IncompleteDatePhotosGroupSchema,
-  PersonInfo,
-  PersonInfoSchema,
   PhotoHashSchema,
   SimpleUserSchema,
-} from "./photosActions.types";
+} from "../../actions/photosActions.types";
 
 import { z } from "zod";
 

@@ -1,4 +1,4 @@
-import store from "../store";
+import { store } from "../store/store";
 import _ from "lodash";
 
 store.subscribe(listener);
@@ -7,16 +7,16 @@ function select(state) {
   return state.ui;
 }
 
-var gridType = "dense";
+let gridType = "dense";
 
 function listener() {
-  var ui = select(store.getState());
+  let ui = select(store.getState());
   gridType = ui.gridType;
 }
 
 export const calculateSharedPhotoGridCells = (groupedBySharerList, itemsPerRow) => {
-  var gridContents = [];
-  var rowCursor = [];
+  let gridContents = [];
+  let rowCursor = [];
 
   groupedBySharerList.forEach((group) => {
     gridContents.push([group]);
@@ -40,8 +40,8 @@ export const calculateSharedPhotoGridCells = (groupedBySharerList, itemsPerRow) 
 };
 
 export const calculateSharedAlbumGridCells = (groupedBySharerList, itemsPerRow) => {
-  var gridContents = [];
-  var rowCursor = [];
+  let gridContents = [];
+  let rowCursor = [];
 
   groupedBySharerList.forEach((group) => {
     gridContents.push([group]);
@@ -65,13 +65,13 @@ export const calculateSharedAlbumGridCells = (groupedBySharerList, itemsPerRow) 
 };
 
 export const calculateGridCells = (groupedByDateList, itemsPerRow) => {
-  var gridContents = [];
-  var rowCursor = [];
-  var hash2row = {};
+  let gridContents = [];
+  let rowCursor = [];
+  let hash2row = {};
 
   groupedByDateList.forEach((day) => {
     gridContents.push([day]);
-    var currRowIdx = gridContents.length;
+    let currRowIdx = gridContents.length;
     day.photos.forEach((photo, idx) => {
       if (idx === 0) {
         rowCursor = [];
@@ -93,7 +93,7 @@ export const calculateGridCells = (groupedByDateList, itemsPerRow) => {
 };
 
 export const calculateGridCellSize = (gridWidth) => {
-  var numEntrySquaresPerRow;
+  let numEntrySquaresPerRow;
 
   if (gridType === "dense") {
     if (gridWidth < 600) {
@@ -141,7 +141,7 @@ export const calculateGridCellSize = (gridWidth) => {
     }
   }
 
-  var entrySquareSize = gridWidth / numEntrySquaresPerRow;
+  let entrySquareSize = gridWidth / numEntrySquaresPerRow;
 
   return {
     entrySquareSize: entrySquareSize,
@@ -150,13 +150,13 @@ export const calculateGridCellSize = (gridWidth) => {
 };
 
 export const calculateFaceGridCells = (groupedByPersonList, itemsPerRow) => {
-  var gridContents = [];
-  var rowCursor = [];
-  var hash2row = {};
+  let gridContents = [];
+  let rowCursor = [];
+  let hash2row = {};
 
   groupedByPersonList.forEach((person) => {
     gridContents.push([person]);
-    var currRowIdx = gridContents.length;
+    let currRowIdx = gridContents.length;
     person.faces.forEach((face, idx) => {
       if (idx === 0) {
         rowCursor = [];
@@ -178,7 +178,7 @@ export const calculateFaceGridCells = (groupedByPersonList, itemsPerRow) => {
 };
 
 export const calculateFaceGridCellSize = (gridWidth) => {
-  var numEntrySquaresPerRow = 10;
+  let numEntrySquaresPerRow = 10;
   if (gridWidth < 300) {
     numEntrySquaresPerRow = 2;
   } else if (gridWidth < 600) {
@@ -191,7 +191,7 @@ export const calculateFaceGridCellSize = (gridWidth) => {
     numEntrySquaresPerRow = 8;
   }
 
-  var entrySquareSize = gridWidth / numEntrySquaresPerRow;
+  let entrySquareSize = gridWidth / numEntrySquaresPerRow;
 
   return {
     entrySquareSize: entrySquareSize,
