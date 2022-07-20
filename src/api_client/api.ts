@@ -24,6 +24,23 @@ export enum Endpoints {
   uploadFinished = "uploadFinished",
   upload = "upload",
   worker = "worker",
+  jobs = "jobs",
+  sitesettings = "sitesettings",
+  user = "user",
+  dirtree = "dirtree",
+  nextcloud = "nextcloud",
+  manage = "manage",
+  deletemissingphotos = "deletemissingphotos",
+  autoalbumgen = "autoalbumgen",
+  autoalbumtitlegen = "autoalbumtitlegen",
+  searchtermexamples = "searchtermexamples",
+  locationsunburst = "locationsunburst",
+  locationtimeline = "locationtimeline",
+  timezones = "timezones",
+  stats = "stats",
+  locclust = "locclust",
+  photomonthcounts = "photomonthcounts",
+  wordcloud = "wordcloud",
 }
 
 const baseQuery = fetchBaseQuery({
@@ -131,6 +148,11 @@ export const api = createApi({
       query: () => ({
         url: "/rqavailable/",
         method: "GET",
+      }),
+    }),
+    [Endpoints.jobs]: builder.query<any, { pageSize: number; page: number }>({
+      query: () => ({
+        url: "/jobs/",
       }),
     }),
   }),
